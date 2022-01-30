@@ -6,6 +6,11 @@
   "author": "__AUTHOR__ <__AUTHOR_EMAIL__>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc --outDir dist/",
+    "typecheck": "tsc --noEmit"
+  },
   "devDependencies": {
     "@types/node": "^17.0.13",
     "ts-node": "^10.4.0",
