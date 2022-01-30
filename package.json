@@ -6,6 +6,10 @@
   "author": "__AUTHOR__ <__AUTHOR_EMAIL__>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "17.x",
+    "yarn": "1.x"
+  },
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc --outDir dist/",
