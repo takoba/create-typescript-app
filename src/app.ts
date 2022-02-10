@@ -1,9 +1,5 @@
 // @TODO This is mock object. please implement your app.
-const app = {
+const App = () => ({
   start: () => console.log('exec app.start()')
-}
-
-;(async () => {
-  app.start()
-  console.info(`INFO: app is running!`, { app })
-})()
+})
+export default App
