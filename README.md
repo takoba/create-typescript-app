@@ -7,13 +7,21 @@ a project generator for TypeScript app
 ## Usage
 
 ### npx
-```sh
+```shell
 npx create-typescript-app --template https://github.com/takoba/typescript-app-boilerplate.git __YOUR_APP_
 ```
 
 ### yarn
-```sh
+```shell
 yarn create typescript-app --template https://github.com/takoba/typescript-app-boilerplate.git __YOUR_APP_
+```
+
+
+## Development
+
+### Execute
+```shell
+yarn start
 ```
 
 
