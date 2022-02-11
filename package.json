@@ -1,6 +1,6 @@
 {
   "name": "@takoba/create-typescript-app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "a project generator for TypeScript app",
   "repository": "https://github.com/takoba/create-typescript-app",
   "author": "takoba <plane25@gmail.com>",
