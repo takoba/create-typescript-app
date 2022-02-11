@@ -46,7 +46,7 @@ const Command = (argv: string[]) => {
     handler: (args, opts) => {
       const isDebug = opts.debug.value
       isDebug && console.debug(`DEBUG: debug mode is enabled.`)
-      isDebug && console.log({ args, opts })
+      isDebug && console.debug(`DEBUG: debug args & opts`, { args, opts })
 
       const appName = args.app_name.value
       const template = opts.template.value
@@ -60,7 +60,7 @@ const Command = (argv: string[]) => {
       }
 
       const gitCloneCommand = `git clone ${template} ${appDirPath}`
-      isDebug && console.debug(`exec \`${gitCloneCommand}\``)
+      isDebug && console.debug(`DEBUG: exec \`${gitCloneCommand}\``)
       execSync(gitCloneCommand, { encoding: 'utf8' })
 
       const packageJsonFilePath = `${appDirPath}/package.json`
