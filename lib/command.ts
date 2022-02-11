@@ -24,7 +24,11 @@ const Command = (argv: string[]) => {
     alias: 'h',
     usage: 'show usage',
   })
-  const flag = reduceFlag(templateFlag, helpFlag)
+  const debugFlag = makeBooleanFlag('debug', {
+    usage: 'toggle debug output',
+    default: false,
+  })
+  const flag = reduceFlag(templateFlag, helpFlag, debugFlag)
 
   const appNameArg = makeStringArgument('app_name', {
     usage: 'app name (uses making directory name)',
@@ -38,7 +42,9 @@ const Command = (argv: string[]) => {
     flag,
     positionalArguments,
     handler: (args, opts) => {
-      console.log(args, opts)
+      const isDebug = opts.debug.value
+      isDebug && console.debug(`DEBUG: debug mode is enabled.`)
+      isDebug && console.log({ args, opts })
 
       const appName = args.app_name.value
       const template = opts.template.value
@@ -46,7 +52,7 @@ const Command = (argv: string[]) => {
 
       const appDirPath = `./${appName}`
       const gitCloneCommand = `git clone ${template} ${appDirPath}`
-      console.debug(`exec \`${gitCloneCommand}\``)
+      isDebug && console.debug(`exec \`${gitCloneCommand}\``)
       execSync(gitCloneCommand, { encoding: 'utf8' })
     },
   })(argv)
