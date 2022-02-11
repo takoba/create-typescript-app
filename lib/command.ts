@@ -39,6 +39,15 @@ const Command = (argv: string[]) => {
     positionalArguments,
     handler: (args, opts) => {
       console.log(args, opts)
+
+      const appName = args.app_name.value
+      const template = opts.template.value
+      console.info(`generate "${appName}" from "${template}".`)
+
+      const appDirPath = `./${appName}`
+      const gitCloneCommand = `git clone ${template} ${appDirPath}`
+      console.debug(`exec \`${gitCloneCommand}\``)
+      execSync(gitCloneCommand, { encoding: 'utf8' })
     },
   })(argv)
 }
