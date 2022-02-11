@@ -1,6 +1,6 @@
 import { doesNotThrow } from 'assert'
 import { execSync } from 'child_process'
-import { existsSync, readFileSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 import {
   makeCommand,
@@ -10,6 +10,7 @@ import {
   makePositionalArguments,
   makeBooleanFlag,
 } from 'catacli'
+import prompts from 'prompts'
 import packageJson from '../package.json'
 
 const DEFAULT_TEMPLATE = 'https://github.com/takoba/typescript-app-boilerplate.git'
@@ -43,7 +44,7 @@ const Command = (argv: string[]) => {
     version: packageJson.version,
     flag,
     positionalArguments,
-    handler: (args, opts) => {
+    handler: async (args, opts) => {
       const isDebug = opts.debug.value
       isDebug && console.debug(`DEBUG: debug mode is enabled.`)
       isDebug && console.debug(`DEBUG: debug args & opts`, { args, opts })
@@ -63,10 +64,55 @@ const Command = (argv: string[]) => {
       isDebug && console.debug(`DEBUG: exec \`${gitCloneCommand}\``)
       execSync(gitCloneCommand, { encoding: 'utf8' })
 
-      const packageJsonFilePath = `${appDirPath}/package.json`
+      const defaultAuthor = execSync(`git config --get user.name`, { encoding: 'utf8' }).trim()
+      const defaultRepository = `https://github.com/${defaultAuthor}/${appName}`
+      const defaultEmail = execSync(`git config --get user.email`, { encoding: 'utf8' }).trim()
+      const { name, description, repository, author, email } = await prompts([
+        { type: 'text', name: 'name', message: 'What your app name wrote package.json & app.json', initial: appName },
+        { type: 'text', name: 'description', message: 'What your app description wrote package.json & app.json' },
+        {
+          type: 'text',
+          name: 'repository',
+          message: 'What your repository wrote package.json & app.json',
+          initial: defaultRepository,
+        },
+        { type: 'text', name: 'author', message: 'What your author name wrote package.json', initial: defaultAuthor },
+        { type: 'text', name: 'email', message: 'What your email wrote package.json', initial: defaultEmail },
+      ])
+      const { website } = await prompts([
+        { type: 'text', name: 'website', message: 'What website wrote app.json', initial: repository },
+      ])
+
+      const packageJsonFilepath = `${appDirPath}/package.json`
       isDebug && console.debug(`DEBUG: read package.json`)
-      const packageJsonFile = readFileSync(packageJsonFilePath, { encoding: 'utf8' })
-      console.log(packageJsonFile)
+      const packageJsonTxt = readFileSync(packageJsonFilepath, { encoding: 'utf8' })
+      isDebug && console.debug(`DEBUG: echo ${packageJsonFilepath}`, { packageJsonTxt })
+      writeFileSync(
+        packageJsonFilepath,
+        packageJsonTxt
+          .replace('__NAME__', name)
+          .replace('__DESCRIPTION__', description)
+          .replace('__REPOSITORY__', repository)
+          .replace('__AUTHOR__', author)
+          .replace('__AUTHOR_EMAIL__', email)
+      )
+      isDebug &&
+        console.debug(`DEBUG echo ${packageJsonFilepath}`, readFileSync(packageJsonFilepath, { encoding: 'utf8' }))
+
+      const appJsonFilepath = `${appDirPath}/app.json`
+      isDebug && console.debug(`DEBUG: read app.json`)
+      const appJsonTxt = readFileSync(appJsonFilepath, { encoding: 'utf8' })
+      isDebug && console.debug(`DEBUG: echo ${appJsonFilepath}`, { appJsonTxt })
+      writeFileSync(
+        appJsonFilepath,
+        appJsonTxt
+          .replace('__NAME__', name)
+          .replace('__DESCRIPTION__', description)
+          .replace('__REPOSITORY__', repository)
+          .replace('__WEBSITE__', website)
+      )
+      isDebug &&
+        console.debug(`DEBUG echo ${appJsonFilepath}`, readFileSync(appJsonFilepath, { encoding: 'utf8' }))
     },
   })(argv)
 }
