@@ -8,12 +8,12 @@ a project generator for TypeScript app
 
 ### npx
 ```shell
-npx create-typescript-app --template https://github.com/takoba/typescript-app-boilerplate.git __YOUR_APP_
+npx create-typescript-app __YOUR_APP__ [--template https://github.com/takoba/typescript-app-boilerplate.git]
 ```
 
 ### yarn
 ```shell
-yarn create typescript-app --template https://github.com/takoba/typescript-app-boilerplate.git __YOUR_APP_
+yarn create typescript-app  __YOUR_APP__ [--template https://github.com/takoba/typescript-app-boilerplate.git]
 ```
 
 
