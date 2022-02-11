@@ -1,6 +1,7 @@
 # @takoba/create-typescript-app
 a project generator for TypeScript app
 
+![GitHub release (latest by date)](https://img.shields.io:/github/v/release/takoba/create-typescript-app)
 ![GitHub](https://img.shields.io:/github/license/takoba/create-typescript-app)
 
 
