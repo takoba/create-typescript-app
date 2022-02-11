@@ -9,9 +9,7 @@
     "node": "17.x",
     "yarn": "1.x"
   },
-  "bin": {
-    "create-typescript-app": "ts-node ./index.ts"
-  },
+  "bin": "ts-node ./index.ts",
   "scripts": {
     "start": "ts-node ./index.ts",
     "typecheck": "tsc --noEmit"
