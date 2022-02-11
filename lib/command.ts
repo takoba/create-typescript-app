@@ -1,6 +1,7 @@
 import { doesNotThrow } from 'assert'
 import { execSync } from 'child_process'
-import { existsSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
+import path from 'path'
 import {
   makeCommand,
   makeStringFlag,
@@ -51,7 +52,7 @@ const Command = (argv: string[]) => {
       const template = opts.template.value
       console.info(`generate "${appName}" from "${template}".`)
 
-      const appDirPath = `./${appName}`
+      const appDirPath = path.join('.', `${appName}`)
       if (existsSync(appDirPath)) {
         console.error(`ERROR: ${appDirPath} is exists. command is finish.`)
         process.exit(1)
@@ -61,6 +62,11 @@ const Command = (argv: string[]) => {
       const gitCloneCommand = `git clone ${template} ${appDirPath}`
       isDebug && console.debug(`exec \`${gitCloneCommand}\``)
       execSync(gitCloneCommand, { encoding: 'utf8' })
+
+      const packageJsonFilePath = `${appDirPath}/package.json`
+      isDebug && console.debug(`DEBUG: read package.json`)
+      const packageJsonFile = readFileSync(packageJsonFilePath, { encoding: 'utf8' })
+      console.log(packageJsonFile)
     },
   })(argv)
 }
