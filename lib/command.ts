@@ -53,7 +53,7 @@ const Command = (argv: string[]) => {
       const template = opts.template.value
       console.info(`generate "${appName}" from "${template}".`)
 
-      const appDirPath = path.join('.', `${appName}`)
+      const appDirPath = path.resolve('.', `${appName}`)
       if (existsSync(appDirPath)) {
         console.error(`ERROR: ${appDirPath} is exists. command is finish.`)
         process.exit(1)
@@ -63,6 +63,10 @@ const Command = (argv: string[]) => {
       const gitCloneCommand = `git clone ${template} ${appDirPath}`
       isDebug && console.debug(`DEBUG: exec \`${gitCloneCommand}\``)
       execSync(gitCloneCommand, { encoding: 'utf8' })
+
+      const removeGitDirCommand = `rm -rf ${appDirPath}/.git/`
+      isDebug && console.debug(`DEBUG: exec \`${removeGitDirCommand}\``)
+      execSync(removeGitDirCommand, { encoding: 'utf8' })
 
       const defaultAuthor = execSync(`git config --get user.name`, { encoding: 'utf8' }).trim()
       const defaultRepository = `https://github.com/${defaultAuthor}/${appName}`
@@ -111,8 +115,14 @@ const Command = (argv: string[]) => {
           .replace('__REPOSITORY__', repository)
           .replace('__WEBSITE__', website)
       )
-      isDebug &&
-        console.debug(`DEBUG echo ${appJsonFilepath}`, readFileSync(appJsonFilepath, { encoding: 'utf8' }))
+      isDebug && console.debug(`DEBUG echo ${appJsonFilepath}`, readFileSync(appJsonFilepath, { encoding: 'utf8' }))
+
+      const initialCommitMessage = ':tada: Initial commit'
+      const renewGitInitCommand = `cd ${appDirPath} && git init && git add . && git commit -m '${initialCommitMessage}' && cd -`
+      isDebug && console.debug(`DEBUG: exec ${renewGitInitCommand}`)
+      execSync(renewGitInitCommand, { encoding: 'utf8' })
+
+      console.info(`finish! generate "${appName}" at ${appDirPath}.`)
     },
   })(argv)
 }
