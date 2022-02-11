@@ -1,2 +1,2 @@
 import Command from './lib/command'
-;(() => Command())()
+;((argv) => Command(argv))(process.argv.splice(2))
