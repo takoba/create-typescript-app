@@ -1,15 +1,18 @@
-//import cp from 'child_process'
+import { doesNotThrow } from 'assert'
+import { execSync } from 'child_process'
 import {
   makeCommand,
   makeStringFlag,
   reduceFlag,
   makeStringArgument,
   makePositionalArguments,
-  makeBooleanFlag
+  makeBooleanFlag,
 } from 'catacli'
 import packageJson from '../package.json'
 
 const DEFAULT_TEMPLATE = 'https://github.com/takoba/typescript-app-boilerplate.git'
+
+doesNotThrow(() => execSync('which git', { encoding: 'utf8' }), 'Unexpected: git command is missing...')
 
 const Command = (argv: string[]) => {
   const templateFlag = makeStringFlag('template', {
