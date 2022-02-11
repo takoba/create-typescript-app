@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublishOnly": "@build",
+    "prepublishOnly": "npm run build",
     "dev": "ts-node ./index.ts",
     "typecheck": "tsc --noEmit"
   },
