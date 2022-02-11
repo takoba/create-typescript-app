@@ -38,6 +38,6 @@ yarn dev
 ## Contributing
 Found a bug or have a question about this project? We'd love to hear from you!
 
-1. Browse to https://github.com/takoba/typescript-app-boilerplate/issues
+1. Browse to https://github.com/takoba/create-typescript-app/issues
 2. If there are no duplicates, create a new issue
 
