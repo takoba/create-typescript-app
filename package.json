@@ -16,7 +16,7 @@
   },
   "main": "./index.js",
   "bin": {
-    "create-typescript-app": "./index.js"
+    "create-typescript-app-base": "./index.js"
   },
   "scripts": {
     "build": "tsc",
