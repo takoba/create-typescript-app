@@ -39,8 +39,8 @@ const Command = (argv: string[]) => {
   const positionalArguments = makePositionalArguments(appNameArg)
 
   return makeCommand({
-    name: 'create-typescript-app',
-    description: 'create-typescript-app is a project generator for TypeScript app.',
+    name: packageJson.name,
+    description: `${packageJson.name} is a project generator for TypeScript app.`,
     version: packageJson.version,
     flag,
     positionalArguments,

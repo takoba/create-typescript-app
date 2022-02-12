@@ -1,4 +1,4 @@
-# @takoba/create-typescript-app
+# create-typescript-app-base
 a project generator for TypeScript app
 
 ![GitHub release (latest by date)](https://img.shields.io:/github/v/release/takoba/create-typescript-app)
@@ -9,20 +9,20 @@ a project generator for TypeScript app
 
 ### npm
 ```console
-$ npm install -g @takoba/create-typescript-app
+$ npm install -g create-typescript-app-base
 added xx packages, and audited xx packages in 1s
 
-$ create-typescript-app
+$ create-typescript-app-base
 NAME:
-   create-typescript-app - create-typescript-app is a project generator for TypeScript app.
+   create-typescript-app-base - create-typescript-app-base is a project generator for TypeScript app.
 ...
 ```
 
 ### npx
 ```console
-$ npx -p @takoba/create-typescript-app create-typescript-app
+$ npx create-typescript-app-base
 NAME:
-   create-typescript-app - create-typescript-app is a project generator for TypeScript app.
+   create-typescript-app-base - create-typescript-app-base is a project generator for TypeScript app.
 ...
 ```
 
