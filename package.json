@@ -1,5 +1,5 @@
 {
-  "name": "@takoba/create-typescript-app",
+  "name": "create-typescript-app-base",
   "version": "0.2.1",
   "description": "a project generator for TypeScript app",
   "keywords": ["typescript", "boilerplate", "generator"],
