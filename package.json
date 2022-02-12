@@ -1,8 +1,12 @@
 {
   "name": "create-typescript-app-base",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "a project generator for TypeScript app",
-  "keywords": ["typescript", "boilerplate", "generator"],
+  "keywords": [
+    "typescript",
+    "boilerplate",
+    "generator"
+  ],
   "repository": "https://github.com/takoba/create-typescript-app",
   "author": "takoba <plane25@gmail.com>",
   "license": "MIT",
