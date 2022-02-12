@@ -28,8 +28,6 @@ NAME:
 
 ### yarn
 ```console
-$ yarn add create-typescript-app-base
-
 $ yarn create typescript-app-base
 NAME:
    create-typescript-app-base - create-typescript-app-base is a project generator for TypeScript app.
