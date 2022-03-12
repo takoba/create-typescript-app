@@ -42,6 +42,7 @@ const Command = (argv: string[]) => {
     name: packageJson.name,
     description: `${packageJson.name} is a project generator for TypeScript app.`,
     version: packageJson.version,
+    usage: 'create-typescript-app-base <app_name> [options]',
     flag,
     positionalArguments,
     handler: async (args, opts) => {
