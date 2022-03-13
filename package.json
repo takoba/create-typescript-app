@@ -1,6 +1,6 @@
 {
   "name": "create-typescript-app-base",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "a project generator for TypeScript app",
   "keywords": [
     "typescript",
