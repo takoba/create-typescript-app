@@ -118,6 +118,11 @@ const Command = (argv: string[]) => {
       )
       isDebug && console.debug(`DEBUG echo ${appJsonFilepath}`, readFileSync(appJsonFilepath, { encoding: 'utf8' }))
 
+      const readmeFilepath = `${appDirPath}/README.md`
+      const readmeTxt = `# ${name}\n${description}\n`
+      writeFileSync(readmeFilepath, readmeTxt)
+      isDebug && console.debug(`DEBUG echo ${readmeFilepath}`, readFileSync(readmeFilepath, { encoding: 'utf8' }))
+
       const initialCommitMessage = ':tada: Initial commit'
       const renewGitInitCommand = `cd ${appDirPath} && git init && git add . && git commit -m '${initialCommitMessage}' && cd -`
       isDebug && console.debug(`DEBUG: exec ${renewGitInitCommand}`)
