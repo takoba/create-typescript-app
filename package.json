@@ -11,8 +11,7 @@
   "author": "takoba <plane25@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "20.x",
-    "yarn": "1.x"
+    "node": "20.x"
   },
   "main": "./index.js",
   "bin": {
