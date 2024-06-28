@@ -18,6 +18,9 @@ const compat = new FlatCompat({
 
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
+  {
+    ignores: ['index.js', 'lib/**/*.js'],
+  },
   js.configs.recommended,
   prettierPluginRecommended,
   ...compat.extends(
@@ -61,7 +64,7 @@ export default [
     },
   },
   {
-    files: ['src/**/*.{ts,tsx}'],
+    files: ['**/*.?(c|m){ts,tsx}'],
 
     languageOptions: {
       globals: {
