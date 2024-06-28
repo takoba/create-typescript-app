@@ -15,7 +15,10 @@ import packageJson from '../package.json'
 
 const DEFAULT_TEMPLATE = 'https://github.com/takoba/typescript-app-boilerplate.git'
 
-doesNotThrow(() => execSync('which git', { encoding: 'utf8' }), 'Unexpected: git command is missing...')
+doesNotThrow(
+  () => execSync('which git', { encoding: 'utf8' }),
+  'Unexpected: git command is missing...',
+)
 
 const Command = (argv: string[]) => {
   const templateFlag = makeStringFlag('template', {
@@ -73,16 +76,35 @@ const Command = (argv: string[]) => {
       const defaultRepository = `https://github.com/${defaultAuthor}/${appName}`
       const defaultEmail = execSync(`git config --get user.email`, { encoding: 'utf8' }).trim()
       const { name, description, repository, author, email } = await prompts([
-        { type: 'text', name: 'name', message: 'What your app name wrote package.json', initial: appName },
-        { type: 'text', name: 'description', message: 'What your app description wrote package.json' },
+        {
+          type: 'text',
+          name: 'name',
+          message: 'What your app name wrote package.json',
+          initial: appName,
+        },
+        {
+          type: 'text',
+          name: 'description',
+          message: 'What your app description wrote package.json',
+        },
         {
           type: 'text',
           name: 'repository',
           message: 'What your repository wrote package.json',
           initial: defaultRepository,
         },
-        { type: 'text', name: 'author', message: 'What your author name wrote package.json', initial: defaultAuthor },
-        { type: 'text', name: 'email', message: 'What your email wrote package.json', initial: defaultEmail },
+        {
+          type: 'text',
+          name: 'author',
+          message: 'What your author name wrote package.json',
+          initial: defaultAuthor,
+        },
+        {
+          type: 'text',
+          name: 'email',
+          message: 'What your email wrote package.json',
+          initial: defaultEmail,
+        },
       ])
 
       const packageJsonFilepath = `${appDirPath}/package.json`
@@ -96,15 +118,22 @@ const Command = (argv: string[]) => {
           .replace('__DESCRIPTION__', description)
           .replace('__REPOSITORY__', repository)
           .replace('__AUTHOR__', author)
-          .replace('__AUTHOR_EMAIL__', email)
+          .replace('__AUTHOR_EMAIL__', email),
       )
       isDebug &&
-        console.debug(`DEBUG echo ${packageJsonFilepath}`, readFileSync(packageJsonFilepath, { encoding: 'utf8' }))
+        console.debug(
+          `DEBUG echo ${packageJsonFilepath}`,
+          readFileSync(packageJsonFilepath, { encoding: 'utf8' }),
+        )
 
       const readmeFilepath = `${appDirPath}/README.md`
       const readmeTxt = `# ${name}\n${description}\n`
       writeFileSync(readmeFilepath, readmeTxt)
-      isDebug && console.debug(`DEBUG echo ${readmeFilepath}`, readFileSync(readmeFilepath, { encoding: 'utf8' }))
+      isDebug &&
+        console.debug(
+          `DEBUG echo ${readmeFilepath}`,
+          readFileSync(readmeFilepath, { encoding: 'utf8' }),
+        )
 
       const initialCommitMessage = ':tada: Initial commit'
       const renewGitInitCommand = `cd ${appDirPath} && git init && git add . && git commit -m '${initialCommitMessage}' && cd -`
