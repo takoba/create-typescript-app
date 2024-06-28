@@ -7,7 +7,7 @@
     "boilerplate",
     "generator"
   ],
-  "repository": "https://github.com/takoba/create-typescript-app",
+  "repository": "https://github.com/takoba/create-typescript-app.git",
   "author": "takoba <plane25@gmail.com>",
   "license": "MIT",
   "engines": {
