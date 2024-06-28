@@ -1,0 +1,31 @@
+{
+  "[javascript][typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.prettier": "explicit",
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    },
+  },
+  "[json][jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace"
+  },
+  "eslint.validate": [
+    "typescript"
+  ],
+  "eslint.useFlatConfig": true,
+  "jest.runMode": "on-demand",
+  "cSpell.words": [
+    "dakuten",
+    "handakuten",
+    "wabun"
+  ]
+}
