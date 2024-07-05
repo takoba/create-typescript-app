@@ -2,7 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
+import stylisticPlugin from '@stylistic/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 import jestPlugin from 'eslint-plugin-jest'
 import prettierPluginRecommended from 'eslint-plugin-prettier/recommended'
@@ -39,13 +39,13 @@ export default [
       },
     },
     plugins: {
-      tsPlugin,
+      '@stylistic': stylisticPlugin,
     },
     rules: {
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-empty-interface': 'off',
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@stylistic/explicit-module-boundary-types': 'off',
+      '@stylistic/no-empty-function': 'off',
+      '@stylistic/no-empty-interface': 'off',
+      '@stylistic/no-trailing-spaces': 'error',
       'no-unused-vars': 'off',
       'sort-imports': 'off',
       'import/no-unresolved': 'error',
