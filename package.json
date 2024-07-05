@@ -22,6 +22,7 @@
     "build": "tsc",
     "dev": "ts-node ./index.ts",
     "typecheck": "tsc --noEmit",
+    "test": "jest",
     "prepublishOnly": "npm run build",
     "postpublish": "npm run cleanup"
   },
