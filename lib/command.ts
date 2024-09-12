@@ -11,8 +11,13 @@ import {
   makeBooleanFlag,
 } from 'catacli'
 import prompts from 'prompts'
-import { degit, DegitError } from 'tiged'
+import degit from 'tiged'
 import packageJson from '../package.json'
+
+// @todo When have been supported the class definition in tiged, remove it
+declare class DegitError extends Error {
+  constructor(message?: string, opts?: object)
+}
 
 const DEFAULT_TEMPLATE = 'https://github.com/takoba/typescript-app-boilerplate.git'
 
