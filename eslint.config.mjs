@@ -4,7 +4,7 @@ import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import stylisticPlugin from '@stylistic/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
-import jestPlugin from 'eslint-plugin-jest'
+import vitestPlugin from '@vitest/eslint-plugin'
 import prettierPluginRecommended from 'eslint-plugin-prettier/recommended'
 import globals from 'globals'
 
@@ -70,18 +70,17 @@ export default [
     },
   },
   {
-    files: ['tests/**/*.?(c|m){ts,tsx}', 'jest.config.ts'],
+    files: ['tests/**/*.?(c|m){ts,tsx}', 'vitest.config.ts'],
 
-    ...jestPlugin.configs['flat/recommended'],
+    ...vitestPlugin.configs.recommended,
 
     languageOptions: {
       globals: {
         ...globals.node,
-        ...globals.jest,
       },
     },
     rules: {
-      ...jestPlugin.configs['flat/recommended'].rules,
+      ...vitestPlugin.rules.recommended,
     },
   },
   {
