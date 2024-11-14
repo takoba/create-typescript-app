@@ -17,18 +17,13 @@ const compat = new FlatCompat({
   resolvePluginsRelativeTo: __dirname,
 })
 
-/** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
   {
     ignores: ['index.js', 'lib/**/*.js'],
   },
   js.configs.recommended,
   prettierPluginRecommended,
-  ...compat.extends(
-    'plugin:import/errors',
-    'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended',
-  ),
+  ...compat.extends('plugin:import/errors', 'plugin:import/typescript'),
   ...compat.plugins('import'),
   {
     languageOptions: {
