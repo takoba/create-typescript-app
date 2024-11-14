@@ -1,14 +1,14 @@
 import path from 'path'
-import { describe, it, expect } from '@jest/globals'
+import { describe, it, expect, vi, afterAll, afterEach } from 'vitest'
 
 const appName = 'test-app'
 const alreadyExistsPath = path.resolve('.', appName)
-jest.mock('fs', () => ({
+vi.mock('fs', () => ({
   existsSync: (path: string) => path === alreadyExistsPath,
 }))
 import Command from '../lib/command'
 
-const processExitMock = (process.exit = jest.fn((code) => code as never))
+const processExitMock = (process.exit = vi.fn((code) => code as never))
 
 describe('export const Command', () => {
   afterEach(() => {
@@ -17,7 +17,7 @@ describe('export const Command', () => {
 
   it('write help text to stdout', () => {
     // arrange
-    const stdoutWriterMock = (process.stdout.write = jest.fn())
+    const stdoutWriterMock = (process.stdout.write = vi.fn())
 
     // act
     Command(['-h'])
@@ -29,8 +29,8 @@ describe('export const Command', () => {
   })
   it('occurred error what exists dir already', () => {
     // arrange
-    //const stderrWriterMock = (process.stderr.write = jest.fn())
-    const consoleErrorMock = (console.error = jest.fn())
+    //const stderrWriterMock = (process.stderr.write = vi.fn())
+    const consoleErrorMock = (console.error = vi.fn())
 
     // act
     Command([appName])
@@ -44,6 +44,6 @@ describe('export const Command', () => {
   })
 
   afterAll(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 })
