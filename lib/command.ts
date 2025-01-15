@@ -11,7 +11,13 @@ import {
   makeBooleanFlag,
 } from 'catacli'
 import prompts from 'prompts'
+import degit from 'tiged'
 import packageJson from '../package.json'
+
+// @todo When have been supported the class definition in tiged, remove it
+declare class DegitError extends Error {
+  constructor(message?: string, opts?: object)
+}
 
 const DEFAULT_TEMPLATE = 'https://github.com/takoba/typescript-app-boilerplate.git'
 
@@ -23,7 +29,8 @@ doesNotThrow(
 const Command = (argv: string[]) => {
   const templateFlag = makeStringFlag('template', {
     alias: 't',
-    usage: 'GitHub Clone URL to boilerplate repo',
+    usage:
+      "GitHub Clone URL to boilerplate repo (or format modeled after tiged's src. cf. https://www.npmjs.com/package/tiged)",
     default: DEFAULT_TEMPLATE,
   })
   const helpFlag = makeBooleanFlag('help', {
@@ -64,13 +71,18 @@ const Command = (argv: string[]) => {
         return
       }
 
-      const gitCloneCommand = `git clone ${template} ${appDirPath}`
-      isDebug && console.debug(`DEBUG: exec \`${gitCloneCommand}\``)
-      execSync(gitCloneCommand, { encoding: 'utf8' })
-
-      const removeGitDirCommand = `rm -rf ${appDirPath}/.git/`
-      isDebug && console.debug(`DEBUG: exec \`${removeGitDirCommand}\``)
-      execSync(removeGitDirCommand, { encoding: 'utf8' })
+      const tiged = degit(template ?? DEFAULT_TEMPLATE)
+      try {
+        await tiged.clone(appDirPath)
+      } catch (e: unknown) {
+        if (e instanceof DegitError) {
+          console.error(`ERROR: internal error. type: DegitError, message: ${e.message}`)
+          process.exit(1)
+        } else {
+          // @TODO: don't throw, exit
+          throw e
+        }
+      }
 
       const defaultAuthor = execSync(`git config --get user.name`, { encoding: 'utf8' }).trim()
       const defaultRepository = `https://github.com/${defaultAuthor}/${appName}`
@@ -111,15 +123,14 @@ const Command = (argv: string[]) => {
       isDebug && console.debug(`DEBUG: read package.json`)
       const packageJsonTxt = readFileSync(packageJsonFilepath, { encoding: 'utf8' })
       isDebug && console.debug(`DEBUG: echo ${packageJsonFilepath}`, { packageJsonTxt })
-      writeFileSync(
-        packageJsonFilepath,
-        packageJsonTxt
-          .replace('__NAME__', name)
-          .replace('__DESCRIPTION__', description)
-          .replace('__REPOSITORY__', repository)
-          .replace('__AUTHOR__', author)
-          .replace('__AUTHOR_EMAIL__', email),
-      )
+
+      const packageJsonObj = JSON.parse(packageJsonTxt)
+      packageJsonObj.name = name
+      packageJsonObj.description = description
+      packageJsonObj.repository = repository
+      packageJsonObj.author = `${author} <${email}>`
+
+      writeFileSync(packageJsonFilepath, JSON.stringify(packageJsonObj, null, 2))
       isDebug &&
         console.debug(
           `DEBUG echo ${packageJsonFilepath}`,

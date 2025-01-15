@@ -5,6 +5,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "baseUrl": ".",
+    "paths": {
+      "*": ["./@types/*"]
+    },
     "resolveJsonModule": true,
     "allowJs": false,
     "declaration": false,
