@@ -123,15 +123,14 @@ const Command = (argv: string[]) => {
       isDebug && console.debug(`DEBUG: read package.json`)
       const packageJsonTxt = readFileSync(packageJsonFilepath, { encoding: 'utf8' })
       isDebug && console.debug(`DEBUG: echo ${packageJsonFilepath}`, { packageJsonTxt })
-      writeFileSync(
-        packageJsonFilepath,
-        packageJsonTxt
-          .replace('__NAME__', name)
-          .replace('__DESCRIPTION__', description)
-          .replace('__REPOSITORY__', repository)
-          .replace('__AUTHOR__', author)
-          .replace('__AUTHOR_EMAIL__', email),
-      )
+
+      const packageJsonObj = JSON.parse(packageJsonTxt)
+      packageJsonObj.name = name
+      packageJsonObj.description = description
+      packageJsonObj.repository = repository
+      packageJsonObj.author = `${author} <${email}>`
+
+      writeFileSync(packageJsonFilepath, JSON.stringify(packageJsonObj, null, 2))
       isDebug &&
         console.debug(
           `DEBUG echo ${packageJsonFilepath}`,
